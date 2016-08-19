@@ -1,5 +1,5 @@
 # PoGoAccountCheck
-PoGo Terms Account Check (Checks if accounts are banned)
+PoGo Account Check (Checks if accounts are banned)
 
 # Usage
 
@@ -19,4 +19,7 @@ username1:password1
 username2:password2
 
 username3:password3
+
+# Output
+The program will display a message in the terminal if the account is banned. Additionally, it will set all banned accounts in a new file named banned.txt
 

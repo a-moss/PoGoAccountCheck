@@ -45,8 +45,8 @@ for username,password in credentials:
         except ServerSideRequestThrottlingException as e:
                 print('Server side throttling, Waiting 10 seconds.')
                 time.sleep(10)
-                accept_tos(username, password)
+                check_account(username, password)
         except NotLoggedInException as e1:
                 print('Could not login, Waiting for 10 seconds')
                 time.sleep(10)
-                accept_tos(username, password)
+                check_account(username, password)

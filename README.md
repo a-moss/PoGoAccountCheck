@@ -29,9 +29,9 @@ ie:
 # Formatting
 Your file of accounts should be structured as follows:
 
-username1:password1
-username2:password2
-username3:password3
+	username1:password1
+	username2:password2
+	username3:password3
 
 # Output
 The program will display a message in the terminal if the account is banned. Additionally, it will output all banned accounts to a new file named banned.txt

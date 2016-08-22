@@ -18,15 +18,21 @@ import os
 def check_account(username, password):
         api = PGoApi()
         auth = 'ptc'
+        api.set_position(40.7127837, -74.005941, 0.0)
         if username.endswith("@gmail.com"):
             auth = 'google'
-        if not api.login(auth, username, password, 40.7127837, -74.005941, 0.0, False):
+        if not api.login(auth, username, password):
             print "Failed to login the following account: {} (It may have been deleted)".format(username)
             return
         time.sleep(1)
         req = api.create_request()
         req.get_inventory()
         response = req.call()
+
+        if type(response) is NotLoggedInException: #For some reason occasionally api.login lets fake ptc accounts slip through.. this will block em
+            print "Failed to login the following account: {} (It may have been deleted)".format(username)
+            return
+            
         if response['status_code'] == 3:
             print('The following account is banned! {}'.format(username))
             if os.path.exists("banned.txt"):

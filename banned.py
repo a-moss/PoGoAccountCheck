@@ -17,8 +17,12 @@ import os
 
 def check_account(username, password):
         api = PGoApi()
-        api.set_position(40.7127837, -74.005941, 0.0)
-        api.login('ptc', username, password)
+        auth = 'ptc'
+        if username.endswith("@gmail.com"):
+            auth = 'google'
+        if not api.login(auth, username, password, 40.7127837, -74.005941, 0.0, False):
+            print "Failed to login the following account: {} (It may have been deleted)".format(username)
+            return
         time.sleep(1)
         req = api.create_request()
         req.get_inventory()

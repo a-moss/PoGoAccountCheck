@@ -1,25 +1,37 @@
 # PoGoAccountCheck
-PoGo Account Check (Checks if accounts are banned)
+PoGoAccountCheck is a python script which reads PTC accounts from a file and checks if they are banned. If they __are__ banned, the program will save them to a file, banned.txt.
+
+# Installation
+To Install PoGoAccountCheck run:
+
+	git clone https://github.com/a-moss/PoGoAccountCheck.git
+
+Then:
+
+	cd PoGoAccountCheck
+    
+After you are in the directory, make sure to install all the requirements by running:
+
+	pip install -r requirements.txt	
 
 # Usage
 
-To use the file use the following command:
+To use the program run the following command:
 
-python banned.py fileu&p
+	python banned.py file.txt
 
-i.e. python banned.py accounts.txt
+Where file.txt is the file of accounts to check. See "Formatting" to see how the file should be formatted.
+ie:
 
-If you are experiencing any issues make sure you have ran: pip install -r requirements.txt
+	python banned.py accounts.txt
+
 
 # Formatting
-Your file (fileu&p) should be structured as follows:
+Your file of accounts should be structured as follows:
 
 username1:password1
-
 username2:password2
-
 username3:password3
 
 # Output
-The program will display a message in the terminal if the account is banned. Additionally, it will set all banned accounts in a new file named banned.txt
-
+The program will display a message in the terminal if the account is banned. Additionally, it will output all banned accounts to a new file named banned.txt

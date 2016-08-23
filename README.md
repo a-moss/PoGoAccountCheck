@@ -18,13 +18,17 @@ After you are in the directory, make sure to install all the requirements by run
 
 To use the program run the following command:
 
-	python banned.py file.txt
+	python banned.py -f file.txt
 
 Where file.txt is the file of accounts to check. See "Formatting" to see how the file should be formatted.
 ie:
 
 	python banned.py accounts.txt
 
+You can also use an additional -l argument which allows you to specify your own location for the program to use. 
+ie:
+
+	python banned.py -f file.txt -l '40.7127837 -74.005941'
 
 # Formatting
 Your file of accounts should be structured as follows:

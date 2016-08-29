@@ -21,9 +21,6 @@ To use the program run the following command:
 	python banned.py -f file.txt
 
 Where file.txt is the file of accounts to check. See "Formatting" to see how the file should be formatted.
-ie:
-
-	python banned.py accounts.txt
 
 You can also use an additional -l argument which allows you to specify your own location for the program to use. 
 ie:

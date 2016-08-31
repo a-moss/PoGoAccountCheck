@@ -53,19 +53,23 @@ def check_account(username, password, location):
 
         if type(response) is NotLoggedInException: #For some reason occasionally api.login lets fake ptc accounts slip through.. this will block em
             print "Failed to login the following account: {} (It may have been deleted)".format(username)
+            appendFile(username)
             return
 
         if response['status_code'] == 3:
             print('The following account is banned! {}'.format(username))
-            if os.path.exists("banned.txt"):
-                f = open('./banned.txt', 'a+b')
-            else:
-                f = open('./banned.txt', 'w+b')
-
-            f.write("%s\n" % (username))
-
-            f.close()
+            appendFile(username)
         else: print('{} is not banned...'.format(username))
+
+def appendFile(username):
+    if os.path.exists("banned.txt"):
+        f = open('./banned.txt', 'a+b')
+    else:
+        f = open('./banned.txt', 'w+b')
+
+    f.write("%s\n" % (username))
+
+    f.close()
 
 def entry():
     args = parse_arguments(sys.argv[1:])

@@ -1,2 +1,4 @@
 *.swp
 accounts.txt
+banned.txt
+*.DS_Store

@@ -36,10 +36,13 @@ def parse_arguments(args):
         '-l', '--location', type=str, default="40.7127837 -74.005941", required=False,
         help='Location to use when checking if the accounts are banned.'
     )
+    parser.add_argument(
+        '-hk', '--hash-key', type=str, default=None, required=False,
+        help='Key for hash server.'
+    )
     return parser.parse_args(args)
 
-def check_account(username, password, location):
-        api = PGoApi()
+def check_account(username, password, location, api):
         auth = 'ptc'
         api.set_position(location[0], location[1], 0.0)
         if username.endswith("@gmail.com"):
@@ -80,6 +83,7 @@ def appendFile(username, filename):
 
 def entry():
     args = parse_arguments(sys.argv[1:])
+    api = PGoApi()
 
     prog = re.compile("^(\-?\d+\.\d+),?\s?(\-?\d+\.\d+)$")
     res = prog.match(args.location)
@@ -90,19 +94,23 @@ def entry():
         print('Failed to parse the supplied coordinates ({}). Please try again.'.format(args.location))
         return
 
+    if args.hash_key:
+        print "Using hash key: {}".format(args.hash_key)
+        api.activate_hash_server(args.hash_key)
+
     with open(str(args.file)) as f:
             credentials = [x.strip().split(':') for x in f.readlines()]
 
     for username,password in credentials:
             try:
-                    check_account(username, password, position)
+                    check_account(username, password, position, api)
             except ServerSideRequestThrottlingException as e:
                     print('Server side throttling, Waiting 10 seconds.')
                     time.sleep(10)
-                    check_account(username, password, position)
+                    check_account(username, password, position, api)
             except NotLoggedInException as e1:
                     print('Could not login, Waiting for 10 seconds')
                     time.sleep(10)
-                    check_account(username, password, position)
+                    check_account(username, password, position, api)
 
 entry()

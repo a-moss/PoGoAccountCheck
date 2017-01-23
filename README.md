@@ -4,7 +4,7 @@ PoGoAccountCheck is a python script which reads PTC accounts from a file and che
 # Installation
 To Install PoGoAccountCheck run:
 
-	git clone https://github.com/a-moss/PoGoAccountCheck.git
+	git clone https://github.com/hokiepokedad/PoGoAccountCheck.git
 
 Then:
 
@@ -26,6 +26,11 @@ You can also use an additional -l argument which allows you to specify your own 
 ie:
 
 	python banned.py -f file.txt -l '40.7127837 -74.005941'
+	
+Lastly, we recommend specifying the -hk argument that allows you to use your hash key for the new api (0.53.1), if you have one.
+ie.
+
+	python banned.py -f file.txt -l '40.7127837 -74.005941' -hk your_hash_key
 
 # Formatting
 Your file of accounts should be structured as follows:

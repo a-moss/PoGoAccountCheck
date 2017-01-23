@@ -4,7 +4,7 @@ PoGoAccountCheck is a python script which reads PTC accounts from a file and che
 # Installation
 To Install PoGoAccountCheck run:
 
-	git clone https://github.com/a-moss/PoGoAccountCheck.git
+	git clone https://github.com/hokiepokedad/PoGoAccountCheck.git
 
 Then:
 

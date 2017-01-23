@@ -9,6 +9,7 @@ from pgoapi import utilities as util
 from pgoapi.exceptions import AuthException
 from pgoapi.exceptions import ServerSideRequestThrottlingException
 from pgoapi.exceptions import NotLoggedInException
+from pgoapi.exceptions import BannedAccountException
 import pprint
 import time
 import threading
@@ -43,9 +44,15 @@ def check_account(username, password, location):
         api.set_position(location[0], location[1], 0.0)
         if username.endswith("@gmail.com"):
             auth = 'google'
-        if not api.login(auth, username, password):
-            print "Failed to login the following account: {} (It may have been deleted)".format(username)
-            return
+
+        try:
+            if not api.login(auth, username, password):
+                print "Failed to login the following account: {} (It may have been deleted)".format(username)
+                appendFile(username, "failed.txt")
+                return
+        except BannedAccountException:
+            pass
+
         time.sleep(1)
         req = api.create_request()
         req.get_inventory()
@@ -53,19 +60,19 @@ def check_account(username, password, location):
 
         if type(response) is NotLoggedInException: #For some reason occasionally api.login lets fake ptc accounts slip through.. this will block em
             print "Failed to login the following account: {} (It may have been deleted)".format(username)
-            appendFile(username)
+            appendFile(username, "failed.txt")
             return
 
         if response['status_code'] == 3:
             print('The following account is banned! {}'.format(username))
-            appendFile(username)
+            appendFile(username, "banned.txt")
         else: print('{} is not banned...'.format(username))
 
-def appendFile(username):
-    if os.path.exists("banned.txt"):
-        f = open('./banned.txt', 'a+b')
+def appendFile(username, filename):
+    if os.path.exists(filename):
+        f = open('./' + filename, 'a+b')
     else:
-        f = open('./banned.txt', 'w+b')
+        f = open('./' + filename, 'w+b')
 
     f.write("%s\n" % (username))
 

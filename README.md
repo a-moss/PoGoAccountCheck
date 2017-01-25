@@ -9,10 +9,10 @@ To Install PoGoAccountCheck run:
 Then:
 
 	cd PoGoAccountCheck
-    
+
 After you are in the directory, make sure to install all the requirements by running:
 
-	pip install -r requirements.txt	
+	pip install -r requirements.txt
 
 # Usage
 
@@ -22,15 +22,23 @@ To use the program run the following command:
 
 Where file.txt is the file of accounts to check. See "Formatting" to see how the file should be formatted.
 
-You can also use an additional -l argument which allows you to specify your own location for the program to use. 
+You can also use an additional -l argument which allows you to specify your own location for the program to use.
 ie:
 
 	python banned.py -f file.txt -l '40.7127837 -74.005941'
-	
+
+For Pokemon Go Map styled accounts.csv use -c.
+
+		python banned.py -f accounts.csv -c
+
+
 Lastly, we recommend specifying the -hk argument that allows you to use your hash key for the new api (0.53.1), if you have one.
 ie.
 
 	python banned.py -f file.txt -l '40.7127837 -74.005941' -hk your_hash_key
+
+
+
 
 # Formatting
 Your file of accounts should be structured as follows:

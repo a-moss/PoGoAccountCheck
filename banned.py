@@ -40,6 +40,10 @@ def parse_arguments(args):
         '-hk', '--hash-key', type=str, default=None, required=False,
         help='Key for hash server.'
     )
+    parser.add_argument(
+        '-c', '--csv-file', action='store_true', default=False, required=False,
+        help='Enables PokomenGO Map style csv'
+    )
     return parser.parse_args(args)
 
 def check_account(username, password, location, api):
@@ -98,7 +102,11 @@ def entry():
         print "Using hash key: {}".format(args.hash_key)
         api.activate_hash_server(args.hash_key)
 
-    with open(str(args.file)) as f:
+    if args.csv_file:
+        with open(str(args.file)) as f:
+            credentials = [x.strip().split(',')[1:] for x in f.readlines()]
+    else:
+        with open(str(args.file)) as f:
             credentials = [x.strip().split(':') for x in f.readlines()]
 
     for username,password in credentials:
